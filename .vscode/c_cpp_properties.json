@@ -21,20 +21,23 @@
     "defines": ["_DEBUG", "UNICODE", "_UNICODE"],
     "intelliSenseMode": "windows-gcc-x64",
     "includePath": [
-      "${workspaceFolder}/**"
-    ]
+      "${workspaceFolder}/**",
+      "F:/Projects/cpp-playground/another-world/include",
+      "F:/Projects/cpp-playground/another-world/src"
+    ],
+    "browse": {
+      "limitSymbolsToIncludedHeaders": true,
+      "path": [
+        "F:/Projects/cpp-playground/another-world/include",
+        "F:/Projects/cpp-playground/another-world/src",
+      ]
+    }
   }, {
     "name": "Linux99",
-    "compilerPath": "F:/Program Files/C-Compilers/bin/g++.exe",
     "cStandard": "c11",
     "defines": [],
     "intelliSenseMode": "gcc-x64",
-    "windowsSdkVersion": "10.0.17763.0",
-    "includePath": [
-      "F:/Projects/cpp-playground/hello-world/include",
-      "F:/Projects/cpp-playground/hello-world/src",
-      "${workspaceFolder}/**"
-    ]
+    "windowsSdkVersion": "10.0.17763.0"
   }],
   "version": 4
 }

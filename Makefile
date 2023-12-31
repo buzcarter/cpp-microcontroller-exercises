@@ -1,8 +1,8 @@
 CC=g++
-CFLAGS=-Iincludes
+CFLAGS=-Iinclude
 
-DEPS = $(wildcard includes/*.h)
-SRC = $(wildcard *.cpp includes/*.cpp)
+DEPS = $(wildcard include/*.h)
+SRC = $(wildcard src/*.cpp) $(wildcard src/lib/*.cpp) $(wildcard src/lib/*/*.cpp)
 OBJ = $(SRC:.cpp=.o)
 
 %.o: %.cpp $(DEPS)
@@ -14,4 +14,4 @@ critter: $(OBJ)
 .PHONY: clean
 
 clean:
-	rm -f *.o includes/*.o critter
+	rm -f src/*.o critter

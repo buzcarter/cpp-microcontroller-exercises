@@ -25,6 +25,10 @@ npm -v
 nvm --version
 ```
 
+## Troubleshooting
+
+* Makefile: indent using tabs, not spaces.
+
 ## Create Stubs
 
 ```sh
