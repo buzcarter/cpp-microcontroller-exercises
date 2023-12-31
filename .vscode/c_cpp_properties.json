@@ -1,0 +1,40 @@
+{
+  "configurations": [{
+    "name": "Mac",
+    "compilerPath": "/usr/bin/g++",
+    "cppStandard": "c++17",
+    "cStandard": "c17",
+    "defines": [],
+    "intelliSenseMode": "macos-gcc-x64",
+    "includePath": [
+      "${workspaceFolder}/**"
+    ],
+    "macFrameworkPath": [
+      "/System/Library/Frameworks",
+      "/Library/Frameworks"
+    ]
+  }, {
+    "name": "Win32",
+    "compilerPath": "F:/Program Files/C-Compilers/bin/g++.exe",
+    "cppStandard": "c++17",
+    "cStandard": "c17",
+    "defines": ["_DEBUG", "UNICODE", "_UNICODE"],
+    "intelliSenseMode": "windows-gcc-x64",
+    "includePath": [
+      "${workspaceFolder}/**"
+    ]
+  }, {
+    "name": "Linux99",
+    "compilerPath": "F:/Program Files/C-Compilers/bin/g++.exe",
+    "cStandard": "c11",
+    "defines": [],
+    "intelliSenseMode": "gcc-x64",
+    "windowsSdkVersion": "10.0.17763.0",
+    "includePath": [
+      "F:/Projects/cpp-playground/hello-world/include",
+      "F:/Projects/cpp-playground/hello-world/src",
+      "${workspaceFolder}/**"
+    ]
+  }],
+  "version": 4
+}

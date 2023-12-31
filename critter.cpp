@@ -1,5 +1,5 @@
 #include <iostream>
-#include "includes/sandbox.cpp"
+#include "includes/sandbox.h"
 
 using std::cout;
 using std::endl;
