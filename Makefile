@@ -8,11 +8,6 @@ OBJ = $(addprefix $(BIN_DIR)/, $(notdir $(SRC:.cpp=.o)))
 
 vpath %.cpp $(sort $(dir $(SRC)))
 
-# all: directories critter
-
-# directories:
-# 	mkdir -p $(BIN_DIR)
-
 $(BIN_DIR)/%.o: %.cpp $(DEPS)
 	$(CC) -c -o $@ $< $(CFLAGS)
 
