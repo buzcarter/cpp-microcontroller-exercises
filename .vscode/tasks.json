@@ -3,7 +3,7 @@
   "tasks": [{
     "label": "build and run",
     "type": "shell",
-    "command": "mingw32-make.exe && ./critter",
+    "command": "mkdir bin -f && mingw32-make.exe && ./bin/critter",
     "group": {
       "kind": "build",
       "isDefault": true

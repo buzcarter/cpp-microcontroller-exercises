@@ -110,3 +110,7 @@ indent_size = 4
 ### README.md
 
 This!
+
+// SRC = $(shell find src -name "*.cpp")
+ && rm src/*.o
+ 

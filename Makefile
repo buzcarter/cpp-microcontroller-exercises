@@ -1,17 +1,25 @@
 CC=g++
 CFLAGS=-Iinclude
+BIN_DIR=bin
 
 DEPS = $(wildcard include/*.h)
 SRC = $(wildcard src/*.cpp) $(wildcard src/lib/*.cpp) $(wildcard src/lib/*/*.cpp)
-OBJ = $(SRC:.cpp=.o)
+OBJ = $(addprefix $(BIN_DIR)/, $(notdir $(SRC:.cpp=.o)))
 
-%.o: %.cpp $(DEPS)
+vpath %.cpp $(sort $(dir $(SRC)))
+
+# all: directories critter
+
+# directories:
+# 	mkdir -p $(BIN_DIR)
+
+$(BIN_DIR)/%.o: %.cpp $(DEPS)
 	$(CC) -c -o $@ $< $(CFLAGS)
 
 critter: $(OBJ)
-	$(CC) -o $@ $^ $(CFLAGS)
+	$(CC) -o $(BIN_DIR)/$@ $^ $(CFLAGS)
 
 .PHONY: clean
 
 clean:
-	rm -f src/*.o critter
+	rm -f $(BIN_DIR)/*.o $(BIN_DIR)/critter
