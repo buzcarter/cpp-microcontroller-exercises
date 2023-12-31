@@ -1,0 +1,4 @@
+bool isSwingSetAvailable()
+{
+  return true;
+}
