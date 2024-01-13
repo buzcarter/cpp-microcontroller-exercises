@@ -34,7 +34,7 @@ void secondBtnPress()
   EventManager::publish(BTN_PRESS_EVENT);
 }
 
-int main()
+void setup()
 {
   TaskManager::add()->repeat(1000, &LEDActions::blink);
   TaskManager::add()->repeat(15, &LEDActions::fadeOut);
@@ -44,15 +44,23 @@ int main()
 
   EventManager::subscribe(BTN_PRESS_EVENT, &onBtnPressResponseA);
   btnBSubscr = EventManager::subscribe(BTN_PRESS_EVENT, &onBtnPressResponseB);
+}
+
+void loop()
+{
+  TaskManager::tick();
+}
+
+int main()
+{
+  setup();
 
   int counter = 0;
   while (counter < PROGRAM_DURATION / CLOCK_INTERVAL)
   {
     std::cout << "t" << counter << std::endl;
     counter++;
-
-    TaskManager::tick();
-
+    loop();
     delay(CLOCK_INTERVAL);
   }
   return 0;
