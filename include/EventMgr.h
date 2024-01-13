@@ -1,6 +1,12 @@
 #ifndef EVENT_MGR_H
 #define EVENT_MGR_H
 
+/**
+ * @todo: sooooo many tweaks left to do here.
+ * 1. payload and eventId on callbacks (handlers)
+ * 2. enum for eventIds
+ */
+
 #include <functional>
 #include <unordered_map>
 #include <vector>

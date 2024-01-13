@@ -5,16 +5,22 @@
 #include "TaskTimer.h"
 #include "Critters.h"
 #include "EventMgr.h"
+#include "EventTypes.h"
 
 #define CLOCK_INTERVAL 25
 #define PROGRAM_DURATION 2000
-
-#define BTN_PRESS_EVENT 1
 
 void delay(int ms)
 {
   std::this_thread::sleep_for(std::chrono::milliseconds(ms));
 }
+
+int toInt(EventTypes eventType)
+{
+  return static_cast<int>(eventType);
+}
+
+const int BTN_PRESS_EVENT = toInt(EventTypes::BtnPressed);
 
 Subscription bSub;
 TaskTimer *timeOutExample;
