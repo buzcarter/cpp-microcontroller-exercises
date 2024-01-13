@@ -1,74 +1,94 @@
 #include <chrono>
 #include <iostream>
+#include <string>
 #include <thread>
-#include "sandbox.h"
+
 #include "TaskTimer.h"
 
 using std::cout;
 using std::endl;
+using std::to_string;
 
-#define CLOCK_INTERVAL      25
-#define PROGRAM_DURATION  2000
+#define CLOCK_INTERVAL 25
+#define PROGRAM_DURATION 2000
 
-class Critters {
+void delay(int ms)
+{
+  std::this_thread::sleep_for(std::chrono::milliseconds(ms));
+}
+
+class Critters
+{
 public:
-  static void mumble()
+  static void blink()
   {
-    cout << "mumble mumble mumble murmur murhmurrrh" << endl;
+    static bool isOn = false;
+    cout << "blink: " << (isOn ? "ON" : "OFF") << endl;
   }
 
-  static void meow()
+  static void fadeOut()
   {
-    cout << "Kitty: meow" << endl;
+    const uint8_t FADE_RATE = 5;
+    static uint8_t value = 100;
+
+    if (value == 0)
+    {
+      return;
+    }
+
+    value = (value < FADE_RATE) ? 0 : value - FADE_RATE;
+    cout << "fadeOut: " << to_string(value) << endl;
   }
 
-  static void woof()
+  static void fade()
   {
-    static uint8_t volume = 0;
+    static uint8_t value = 0;
     static uint8_t step = 5;
 
-    cout << "Doggie: woof... " << static_cast<int>(volume) << endl;
+    cout << "fade: " << to_string(value) << endl;
 
-    if (volume == 0)
+    if (value == 0)
     {
       step = 5;
-    } else if (volume == 100) {
+    }
+    else if (value == 100)
+    {
       step = -5;
     }
-    volume += step;
+    value += step;
   }
 };
 
+// defined here just for funsies
+TaskTimer *blinkTimer;
+TaskTimer *fadeOutTimer;
+
 int main()
 {
-  void (*mumblePtr)() = &Critters::mumble;
-  void (*meowPtr)() = &Critters::meow;
+  // again, just for funsies
+  void (*blinkPtr)() = &Critters::blink;
+  void (*fadeOutPtr)() = &Critters::fadeOut;
 
-  TaskTimer *mumbleTimer;
-  mumbleTimer = new TaskTimer();
-  mumbleTimer->repeat(250, mumblePtr);
+  blinkTimer = new TaskTimer();
+  blinkTimer->repeat(250, blinkPtr);
 
-  TaskTimer *meowTimer;
-  meowTimer = new TaskTimer();
-  meowTimer->repeat(750, meowPtr);
+  fadeOutTimer = new TaskTimer();
+  fadeOutTimer->repeat(15, fadeOutPtr);
 
-  TaskTimer *woofTimer = new TaskTimer();
-  woofTimer->repeat(10, &Critters::woof);
+  TaskTimer *fadeTimer = new TaskTimer();
+  fadeTimer->repeat(10, &Critters::fade);
 
   int counter = 0;
-  cout << (isSwingSetAvailable() ? "Go to the park now" : "You'd better wait") << endl;
-
   while (counter < PROGRAM_DURATION / CLOCK_INTERVAL)
   {
     cout << "t" << counter << endl;
     counter++;
 
-    mumbleTimer->tick();
-    meowTimer->tick();
-    woofTimer->tick();
-    std::this_thread::sleep_for(std::chrono::milliseconds(CLOCK_INTERVAL));
-  }
+    blinkTimer->tick();
+    fadeOutTimer->tick();
+    fadeTimer->tick();
 
-  cout << "You've just wasted about " << mumbleTimer->getLastTick() << "ms" << endl;
+    delay(CLOCK_INTERVAL);
+  }
   return 0;
 }

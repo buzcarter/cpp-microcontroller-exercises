@@ -33,8 +33,3 @@ void TaskTimer::tick()
   _eventHandler();
   _lastTick = now;
 }
-
-unsigned long TaskTimer::getLastTick()
-{
-  return _lastTick;
-}

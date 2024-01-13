@@ -7,7 +7,6 @@ class TaskTimer
     TaskTimer();
     ~TaskTimer();
     void tick();
-    unsigned long getLastTick();
     void repeat(unsigned int interval, void (*eventHandler)());
   private:
     unsigned long _lastTick;
