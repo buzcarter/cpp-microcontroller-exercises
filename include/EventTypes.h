@@ -9,4 +9,9 @@ enum class EventTypes : int
   SpeedStopped = 301,
 };
 
+int toInt(EventTypes eventType)
+{
+  return static_cast<int>(eventType);
+}
+
 #endif

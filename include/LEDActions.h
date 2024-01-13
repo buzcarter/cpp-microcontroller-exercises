@@ -1,5 +1,5 @@
-#ifndef CRITTERS_H
-#define CRITTERS_H
+#ifndef LED_ACTIONS_H
+#define LED_ACTIONS_H
 
 #include <iostream>
 #include <string>
@@ -9,7 +9,7 @@ using std::cout;
 using std::endl;
 using std::to_string;
 
-class Critters
+class LEDActions
 {
 public:
   static void blink()

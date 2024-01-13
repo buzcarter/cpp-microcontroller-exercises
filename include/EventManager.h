@@ -20,7 +20,7 @@ using Subscription = vector<Subscriber>::iterator;
 
 unordered_map<int, vector<Subscriber>> _event_mgr_subscriptions;
 
-class EventMgr
+class EventManager
 {
 public:
 
