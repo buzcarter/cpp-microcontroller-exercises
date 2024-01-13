@@ -15,6 +15,7 @@ public:
   static void blink()
   {
     static bool isOn = false;
+    isOn = !isOn;
     cout << "blink: " << (isOn ? "ON" : "OFF") << endl;
   }
 
