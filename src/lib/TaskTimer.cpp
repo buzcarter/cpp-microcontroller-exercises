@@ -1,22 +1,23 @@
-#include "MyTimer.h"
+#include "TaskTimer.h"
 #include "millis.h"
 
-MyTimer::MyTimer()
+TaskTimer::TaskTimer()
 {
   _lastTick = 0;
   _interval = 0;
 }
 
-MyTimer::~MyTimer()
+TaskTimer::~TaskTimer()
 {
 }
 
-void MyTimer::repeat(unsigned int interval)
+void TaskTimer::repeat(unsigned int interval, void (*eventHandler)())
 {
   _interval = interval;
+  _eventHandler = eventHandler;
 }
 
-void MyTimer::tick()
+void TaskTimer::tick()
 {
   if (_interval == 0)
   {
@@ -29,10 +30,11 @@ void MyTimer::tick()
     return;
   }
 
+  _eventHandler();
   _lastTick = now;
 }
 
-unsigned long MyTimer::getLastTick()
+unsigned long TaskTimer::getLastTick()
 {
   return _lastTick;
 }
