@@ -17,14 +17,35 @@ void TaskTimer::repeat(unsigned int interval, void (*eventHandler)())
   _eventHandler = eventHandler;
 }
 
-void TaskTimer::tick()
+void TaskTimer::once(unsigned int delay, void (*eventHandler)())
+{
+  _delay = delay;
+  _eventHandler = eventHandler;
+}
+
+void TaskTimer::checkOnce(unsigned long now)
+{
+  if (_delay == 0)
+  {
+    return;
+  }
+
+  if (now - _lastTick < _delay)
+  {
+    return;
+  }
+
+  _eventHandler();
+  _delay = 0;
+}
+
+void TaskTimer::checkInterval(unsigned long now)
 {
   if (_interval == 0)
   {
     return;
   }
 
-  const unsigned long now = millis();
   if (now - _lastTick < _interval)
   {
     return;
@@ -32,4 +53,11 @@ void TaskTimer::tick()
 
   _eventHandler();
   _lastTick = now;
+}
+
+void TaskTimer::tick()
+{
+  const unsigned long now = millis();
+  checkInterval(now);
+  checkOnce(now);
 }

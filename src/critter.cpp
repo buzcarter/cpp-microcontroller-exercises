@@ -16,9 +16,8 @@ void delay(int ms)
   std::this_thread::sleep_for(std::chrono::milliseconds(ms));
 }
 
-// defined here just for funsies
-TaskTimer *blinkTimer;
-TaskTimer *fadeOutTimer;
+Subscription bSub;
+TaskTimer *timeOutExample;
 
 void onBtnPressResponseA()
 {
@@ -30,23 +29,40 @@ void onBtnPressResponseB()
   std::cout << "Button 'B' pressed!" << std::endl;
 }
 
+void firstBtnPress()
+{
+  EventMgr::publish(BTN_PRESS_EVENT);
+  EventMgr::unsubscribe(BTN_PRESS_EVENT, bSub);
+}
+
+void secondBtnPress()
+{
+  EventMgr::publish(BTN_PRESS_EVENT);
+}
+
 int main()
 {
-  // again, just for funsies
-  void (*blinkPtr)() = &Critters::blink;
-  void (*fadeOutPtr)() = &Critters::fadeOut;
+  // Blink
+  TaskTimer *blinkTimer = new TaskTimer();
+  blinkTimer->repeat(250, &Critters::blink);
 
-  blinkTimer = new TaskTimer();
-  blinkTimer->repeat(250, blinkPtr);
+  // FadeOut
+  TaskTimer *fadeOutTimer = new TaskTimer();
+  fadeOutTimer->repeat(15, &Critters::fadeOut);
 
-  fadeOutTimer = new TaskTimer();
-  fadeOutTimer->repeat(15, fadeOutPtr);
-
+  // Fade
   TaskTimer *fadeTimer = new TaskTimer();
   fadeTimer->repeat(10, &Critters::fade);
 
+  // EventMgr, fire BTN_PRESS_EVENT twice. two subscribers.
+  TaskTimer *firstTimeOutEvent = new TaskTimer();
+  firstTimeOutEvent->once(18 * CLOCK_INTERVAL, &firstBtnPress);
+
+  TaskTimer *secondTimeOutEvent = new TaskTimer();
+  secondTimeOutEvent->once(49 * CLOCK_INTERVAL, &firstBtnPress);
+
   EventMgr::subscribe(BTN_PRESS_EVENT, &onBtnPressResponseA);
-  Subscription bSub = EventMgr::subscribe(BTN_PRESS_EVENT, &onBtnPressResponseB);
+  bSub = EventMgr::subscribe(BTN_PRESS_EVENT, &onBtnPressResponseB);
 
   int counter = 0;
   while (counter < PROGRAM_DURATION / CLOCK_INTERVAL)
@@ -57,13 +73,8 @@ int main()
     blinkTimer->tick();
     fadeOutTimer->tick();
     fadeTimer->tick();
-
-    if (counter == 18) {
-      EventMgr::publish(BTN_PRESS_EVENT);
-      EventMgr::unsubscribe(BTN_PRESS_EVENT, bSub);
-    } else if (counter == 49) {
-      EventMgr::publish(BTN_PRESS_EVENT);
-    }
+    firstTimeOutEvent->tick();
+    secondTimeOutEvent->tick();
 
     delay(CLOCK_INTERVAL);
   }
