@@ -11,10 +11,10 @@ vpath %.cpp $(sort $(dir $(SRC)))
 $(BIN_DIR)/%.o: %.cpp $(DEPS)
 	$(CC) -c -o $@ $< $(CFLAGS)
 
-critter: $(OBJ)
+demo: $(OBJ)
 	$(CC) -o $(BIN_DIR)/$@ $^ $(CFLAGS)
 
 .PHONY: clean
 
 clean:
-	rm -f $(BIN_DIR)/*.o $(BIN_DIR)/critter
+	rm -f $(BIN_DIR)/*.o $(BIN_DIR)/demo
