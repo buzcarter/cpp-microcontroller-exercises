@@ -6,6 +6,7 @@
 #include "Critters.h"
 #include "EventMgr.h"
 #include "EventTypes.h"
+#include "TaskManager.h"
 
 #define CLOCK_INTERVAL 25
 #define PROGRAM_DURATION 2000
@@ -48,17 +49,29 @@ void secondBtnPress()
 
 int main()
 {
-  // Blink
-  TaskTimer *blinkTimer = new TaskTimer();
-  blinkTimer->repeat(250, &Critters::blink);
+  // TaskManager::init();
+  TaskTimer *t0 = TaskManager::add();
+  t0->repeat(1000, &Critters::blink);
+  TaskTimer *t1 = TaskManager::add();
+  t1->repeat(15, &Critters::fadeOut);
+  TaskTimer *t2 = TaskManager::add();
+  t2->repeat(10, &Critters::fade);
+  // TaskManager::add().once(18 * CLOCK_INTERVAL, &firstBtnPress);
+  // TaskManager::add().once(49 * CLOCK_INTERVAL, &secondBtnPress);
 
-  // FadeOut
-  TaskTimer *fadeOutTimer = new TaskTimer();
-  fadeOutTimer->repeat(15, &Critters::fadeOut);
+  /*
+    // Blink
+    TaskTimer *blinkTimer = new TaskTimer();
+    blinkTimer->repeat(250, &Critters::blink);
 
-  // Fade
-  TaskTimer *fadeTimer = new TaskTimer();
-  fadeTimer->repeat(10, &Critters::fade);
+    // FadeOut
+    TaskTimer *fadeOutTimer = new TaskTimer();
+    fadeOutTimer->repeat(15, &Critters::fadeOut);
+
+    // Fade
+    TaskTimer *fadeTimer = new TaskTimer();
+    fadeTimer->repeat(10, &Critters::fade);
+  */
 
   // EventMgr, fire BTN_PRESS_EVENT twice. two subscribers.
   TaskTimer *firstTimeOutEvent = new TaskTimer();
@@ -76,9 +89,10 @@ int main()
     std::cout << "t" << counter << std::endl;
     counter++;
 
-    blinkTimer->tick();
-    fadeOutTimer->tick();
-    fadeTimer->tick();
+    TaskManager::tick();
+    // blinkTimer->tick();
+    // fadeOutTimer->tick();
+    // fadeTimer->tick();
     firstTimeOutEvent->tick();
     secondTimeOutEvent->tick();
 
