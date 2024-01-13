@@ -2,6 +2,7 @@
 #include <iostream>
 #include <thread>
 #include "sandbox.h"
+#include "MyTimer.h"
 
 using std::cout;
 using std::endl;
@@ -11,6 +12,9 @@ using std::endl;
 
 int main()
 {
+  MyTimer *timer;
+  timer = new MyTimer();
+
   int counter = 0;
   cout << (isSwingSetAvailable() ? "Go to the park now" : "You'd better wait") << endl;
 
@@ -19,8 +23,10 @@ int main()
     cout << "Tick #" << counter << endl;
     counter++;
 
+    timer->tick();
     std::this_thread::sleep_for(std::chrono::milliseconds(100));
   }
 
+  cout << "You've just wasted about " << timer->getLastTick() << "ms" << endl;
   return 0;
 }
