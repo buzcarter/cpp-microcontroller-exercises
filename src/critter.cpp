@@ -25,13 +25,17 @@ public:
   static void woof()
   {
     static uint8_t volume = 0;
+    static uint8_t step = 5;
+
     cout << "Doggie: woof... " << static_cast<int>(volume) << endl;
-    if (volume < 10)
+
+    if (volume == 0)
     {
-      volume++;
-    } else {
-      volume = 0;
+      step = 5;
+    } else if (volume == 100) {
+      step = -5;
     }
+    volume += step;
   }
 };
 
