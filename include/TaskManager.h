@@ -10,6 +10,7 @@ class TaskManager
 {
 private:
   static vector<TaskTimer *> _task_mgr_timers;
+  static void gc();
 
 public:
   static unsigned long _lastTick;
