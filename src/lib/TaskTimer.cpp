@@ -4,6 +4,8 @@ TaskTimer::TaskTimer()
 {
   _lastTick = 0;
   _interval = 0;
+  _delay = 0;
+  _type = TaskTimerType::UNASSIGNED;
 }
 
 TaskTimer::~TaskTimer()
@@ -12,12 +14,14 @@ TaskTimer::~TaskTimer()
 
 void TaskTimer::repeat(unsigned int interval, void (*eventHandler)())
 {
+  _type = TaskTimerType::INTERVAL;
   _interval = interval;
   _eventHandler = eventHandler;
 }
 
 void TaskTimer::once(unsigned int delay, void (*eventHandler)())
 {
+  _type = TaskTimerType::ONCE;
   _delay = delay;
   _eventHandler = eventHandler;
 }
@@ -56,7 +60,13 @@ void TaskTimer::checkInterval(unsigned long now)
 
 void TaskTimer::tick(unsigned long now)
 {
-  checkInterval(now);
-  checkOnce(now);
-
+  switch (_type)
+  {
+    case TaskTimerType::INTERVAL:
+      checkInterval(now);
+      break;
+    case TaskTimerType::ONCE:
+      checkOnce(now);
+      break;
+  }
 }

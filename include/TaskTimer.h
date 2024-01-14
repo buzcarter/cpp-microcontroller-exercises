@@ -1,6 +1,15 @@
 #ifndef TASK_TIMER_H
 #define TASK_TIMER_H
 
+#include <cstdint>
+
+enum class TaskTimerType : int8_t
+{
+  UNASSIGNED,
+  ONCE,
+  INTERVAL,
+};
+
 class TaskTimer
 {
   public:
@@ -13,6 +22,7 @@ class TaskTimer
     unsigned long _lastTick;
     unsigned int _interval;
     unsigned int _delay;
+    TaskTimerType _type;
     void (*_eventHandler)();
     void checkOnce(unsigned long now);
     void checkInterval(unsigned long now);
