@@ -5,6 +5,8 @@
 #include <string>
 #include <cstdint>
 
+#include "StdOutColors.h"
+
 using std::cout;
 using std::endl;
 using std::to_string;
@@ -16,7 +18,7 @@ public:
   {
     static bool isOn = false;
     isOn = !isOn;
-    cout << "blink: " << (isOn ? "ON" : "OFF") << endl;
+    cout << STD_OUT_COLOR_RED << "blink: " << (isOn ? "ON" : "OFF") << STD_OUT_COLOR_RESET << endl;
   }
 
   static void fadeOut()
@@ -30,7 +32,7 @@ public:
     }
 
     value = (value < FADE_RATE) ? 0 : value - FADE_RATE;
-    cout << "fadeOut: " << to_string(value) << endl;
+    cout << STD_OUT_COLOR_CYAN << "fadeOut: " << to_string(value) << STD_OUT_COLOR_RESET << endl;
   }
 
   static void fade()
@@ -38,7 +40,7 @@ public:
     static uint8_t value = 0;
     static uint8_t step = 5;
 
-    cout << "fade: " << to_string(value) << endl;
+    cout << STD_OUT_COLOR_YELLOW << "fade: " << to_string(value) << STD_OUT_COLOR_RESET << endl;
 
     if (value == 0)
     {

@@ -4,6 +4,7 @@
 #include "EventManager.h"
 #include "EventTypes.h"
 #include "TaskManager.h"
+#include "StdOutColors.h"
 
 const int BTN_PRESS_EVENT = toInt(EventTypes::BtnPressed);
 
@@ -11,12 +12,12 @@ Subscription btnBSubscr;
 
 void onBtnPressResponseA()
 {
-  std::cout << "Button 'A' pressed!" << std::endl;
+  std::cout  << STD_OUT_COLOR_MAGENTA << "Button 'A' pressed!" << STD_OUT_COLOR_RESET << std::endl;
 }
 
 void onBtnPressResponseB()
 {
-  std::cout << "Button 'B' pressed!" << std::endl;
+  std::cout  << STD_OUT_COLOR_MAGENTA << "Button 'B' pressed!" << STD_OUT_COLOR_RESET << std::endl;
 }
 
 int pressedCount = 0;

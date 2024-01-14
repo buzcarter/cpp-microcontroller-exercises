@@ -1,63 +1,38 @@
 #include "TaskTimer.h"
-#include "millis.h"
-
-TaskTimer::TaskTimer()
-{
-  _lastTick = 0;
-  _interval = 0;
-}
-
-TaskTimer::~TaskTimer()
-{
-}
 
 void TaskTimer::repeat(unsigned int interval, void (*eventHandler)())
 {
-  _interval = interval;
+  _type = TaskTimerType::INTERVAL;
+  _delay = interval;
   _eventHandler = eventHandler;
 }
 
 void TaskTimer::once(unsigned int delay, void (*eventHandler)())
 {
+  _type = TaskTimerType::ONCE;
   _delay = delay;
   _eventHandler = eventHandler;
 }
 
-void TaskTimer::checkOnce(unsigned long now)
+void TaskTimer::stop()
 {
-  if (_delay == 0)
-  {
-    return;
-  }
-
-  if (now - _lastTick < _delay)
-  {
-    return;
-  }
-
-  _eventHandler();
-  _delay = 0;
+  _enabled = false;
 }
 
-void TaskTimer::checkInterval(unsigned long now)
+void TaskTimer::tick(unsigned long now)
 {
-  if (_interval == 0)
+  if (!_enabled || _delay == 0 || (now - _lastTick < _delay))
   {
     return;
   }
 
-  if (now - _lastTick < _interval)
+  switch (_type)
   {
-    return;
+  case TaskTimerType::ONCE:
+    _enabled = false;
+    break;
   }
 
-  _eventHandler();
   _lastTick = now;
-}
-
-void TaskTimer::tick()
-{
-  const unsigned long now = millis();
-  checkInterval(now);
-  checkOnce(now);
+  _eventHandler();
 }

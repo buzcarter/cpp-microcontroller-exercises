@@ -12,6 +12,7 @@ private:
   static vector<TaskTimer *> _task_mgr_timers;
 
 public:
+  static unsigned long _lastTick;
   static TaskTimer *add();
   static void tick();
 };
