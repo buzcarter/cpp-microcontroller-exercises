@@ -9,9 +9,9 @@ vector<TaskTimer*> TaskManager::_task_mgr_timers;
 
 TaskTimer* TaskManager::add()
 {
-  TaskTimer *nextTimer = new TaskTimer();
-  _task_mgr_timers.push_back(nextTimer);
-  return nextTimer;
+  TaskTimer *timer = new TaskTimer();
+  _task_mgr_timers.push_back(timer);
+  return timer;
 }
 
 void TaskManager::tick()
