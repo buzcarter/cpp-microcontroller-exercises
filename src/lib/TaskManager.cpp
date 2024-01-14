@@ -21,4 +21,5 @@ void TaskManager::tick()
   {
     timer->tick(now);
   }
+  // TODO: remove timers that are no longer enabled?
 }

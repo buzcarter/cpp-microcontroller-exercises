@@ -4,6 +4,7 @@
 #include "delay.h"
 #include "LEDActions.h"
 #include "TaskManager.h"
+#include "StdOutColors.h"
 
 #define CLOCK_INTERVAL 25
 #define PROGRAM_DURATION 2000
@@ -28,7 +29,7 @@ int main()
   int counter = 0;
   while (counter < PROGRAM_DURATION / CLOCK_INTERVAL)
   {
-    std::cout << "t" << counter << std::endl;
+    std::cout << STD_OUT_COLOR_GREEN << "t" << counter << STD_OUT_COLOR_RESET << ::endl;
     counter++;
     loop();
     delay(CLOCK_INTERVAL);
