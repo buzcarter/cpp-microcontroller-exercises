@@ -14,14 +14,14 @@ using std::to_string;
 class LEDActions
 {
 public:
-  static void blink()
+  static void blink(unsigned long now)
   {
     static bool isOn = false;
     isOn = !isOn;
     cout << STD_OUT_COLOR_RED << "blink: " << (isOn ? "ON" : "OFF") << STD_OUT_COLOR_RESET << endl;
   }
 
-  static void fadeOut()
+  static void fadeOut(unsigned long now)
   {
     const uint8_t FADE_RATE = 5;
     static uint8_t value = 100;
@@ -35,7 +35,7 @@ public:
     cout << STD_OUT_COLOR_CYAN << "fadeOut: " << to_string(value) << STD_OUT_COLOR_RESET << endl;
   }
 
-  static void fade()
+  static void fade(unsigned long now)
   {
     static uint8_t value = 0;
     static uint8_t step = 5;

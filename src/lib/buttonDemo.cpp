@@ -12,17 +12,17 @@ Subscription btnBSubscr;
 
 void onBtnPressResponseA()
 {
-  std::cout  << STD_OUT_COLOR_MAGENTA << "Button 'A' pressed!" << STD_OUT_COLOR_RESET << std::endl;
+  std::cout  << STD_OUT_COLOR_MAGENTA << "Button " << STD_OUT_COLOR_WHITE << 'A' << STD_OUT_COLOR_MAGENTA << "!" << STD_OUT_COLOR_RESET << std::endl;
 }
 
 void onBtnPressResponseB()
 {
-  std::cout  << STD_OUT_COLOR_MAGENTA << "Button 'B' pressed!" << STD_OUT_COLOR_RESET << std::endl;
+  std::cout  << STD_OUT_COLOR_MAGENTA << "Button " << STD_OUT_COLOR_WHITE << 'B' << STD_OUT_COLOR_MAGENTA << "!" << STD_OUT_COLOR_RESET << std::endl;
 }
 
 int pressedCount = 0;
 
-void btnPressed()
+void btnPressed(unsigned long now)
 {
   EventManager::publish(BTN_PRESS_EVENT);
   if (pressedCount == 0)
