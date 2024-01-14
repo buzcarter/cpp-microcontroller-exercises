@@ -6,7 +6,7 @@ class TaskTimer
   public:
     TaskTimer();
     ~TaskTimer();
-    void tick();
+    void tick(unsigned long now);
     void repeat(unsigned int interval, void (*eventHandler)());
     void once(unsigned int delay, void (*eventHandler)());
   private:

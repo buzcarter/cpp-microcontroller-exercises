@@ -1,5 +1,4 @@
 #include "TaskTimer.h"
-#include "millis.h"
 
 TaskTimer::TaskTimer()
 {
@@ -34,6 +33,7 @@ void TaskTimer::checkOnce(unsigned long now)
   {
     return;
   }
+  _lastTick = now;
 
   _eventHandler();
   _delay = 0;
@@ -50,14 +50,13 @@ void TaskTimer::checkInterval(unsigned long now)
   {
     return;
   }
-
-  _eventHandler();
   _lastTick = now;
+  _eventHandler();
 }
 
-void TaskTimer::tick()
+void TaskTimer::tick(unsigned long now)
 {
-  const unsigned long now = millis();
   checkInterval(now);
   checkOnce(now);
+
 }

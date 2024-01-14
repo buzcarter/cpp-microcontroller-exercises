@@ -1,4 +1,5 @@
 #include <vector>
+#include "millis.h"
 #include "TaskManager.h"
 #include "TaskTimer.h"
 
@@ -15,8 +16,9 @@ TaskTimer* TaskManager::add()
 
 void TaskManager::tick()
 {
+  const unsigned long now = millis();
   for (auto timer : _task_mgr_timers)
   {
-    timer->tick();
+    timer->tick(now);
   }
 }
